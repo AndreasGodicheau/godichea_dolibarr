@@ -137,7 +137,7 @@ class modgodichea extends DolibarrModules
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
         $this->tabs = array(
-		'thirdparty:+godichea:Title1:godichea@godichea:$user->rights->godichea->read:/godichea/godichea.php?id=__ID__'
+		'thirdparty:+godichea:GestionPC:godichea@godichea:$user->rights->godichea->read:/godichea/godichea.php?id=__ID__'
 		);
 
         // Dictionaries
