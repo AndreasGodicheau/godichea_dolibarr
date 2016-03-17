@@ -2,8 +2,8 @@
 
 	require 'config.php';
 	
-	dol_include_once('societe/class/societe.class.php');
-	dol_include_once('core/lib/company.lib.php');
+	dol_include_once('/societe/class/societe.class.php');
+	dol_include_once('/core/lib/company.lib.php');
 	
 	$fk_soc = GETPOST('id');
 
@@ -35,5 +35,3 @@
 		
 		llxFooter();
 	}
-
-?>
