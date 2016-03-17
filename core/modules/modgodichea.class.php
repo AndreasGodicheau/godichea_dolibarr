@@ -25,48 +25,46 @@
  *  \ingroup    godichea
  *  \brief      Description and activation file for module godichea
  */
-include_once DOL_DOCUMENT_ROOT .'/core/modules/DolibarrModules.class.php';
-
+include_once DOL_DOCUMENT_ROOT . '/core/modules/DolibarrModules.class.php';
 
 /**
  *  Description and activation class for module godichea
  */
-class modgodichea extends DolibarrModules
-{
+class modgodichea extends DolibarrModules {
 	/**
 	 *   Constructor. Define names, constants, directories, boxes, permissions
 	 *
 	 *   @param      DoliDB		$db      Database handler
 	 */
-	function __construct($db)
-	{
-        global $langs,$conf;
+	function __construct($db) {
+		global $langs, $conf;
 
-        $this->db = $db;
+		$this -> db = $db;
 
 		// Id for module (must be unique).
 		// Use here a free id (See in Home -> System information -> Dolibarr for list of used modules id).
-		$this->numero = 209001; // 104000 to 104999 for ATM CONSULTING
+		$this -> numero = 209001;
+		// 104000 to 104999 for ATM CONSULTING
 		// Key text used to identify module (for permissions, menus, etc...)
-		$this->rights_class = 'godichea';
+		$this -> rights_class = 'godichea';
 
 		// Family can be 'crm','financial','hr','projects','products','ecm','technic','other'
 		// It is used to group modules in module setup page
-		$this->family = "ATM";
+		$this -> family = "ATM";
 		// Module label (no space allowed), used if translation string 'ModuleXXXName' not found (where XXX is value of numeric property 'numero' of module)
-		$this->name = preg_replace('/^mod/i','',get_class($this));
+		$this -> name = preg_replace('/^mod/i', '', get_class($this));
 		// Module description, used if translation string 'ModuleXXXDesc' not found (where XXX is value of numeric property 'numero' of module)
-		$this->description = "Description of module godichea";
+		$this -> description = "Description of module godichea";
 		// Possible values for version are: 'development', 'experimental', 'dolibarr' or version
-		$this->version = '1.0';
+		$this -> version = '1.0';
 		// Key used in llx_const table to save module status enabled/disabled (where MYMODULE is value of property name of module in uppercase)
-		$this->const_name = 'MAIN_MODULE_'.strtoupper($this->name);
+		$this -> const_name = 'MAIN_MODULE_' . strtoupper($this -> name);
 		// Where to store the module in setup page (0=common,1=interface,2=others,3=very specific)
-		$this->special = 0;
+		$this -> special = 0;
 		// Name of image file used for this module.
 		// If file is in theme/yourtheme/img directory under name object_pictovalue.png, use this->picto='pictovalue'
 		// If file is in module/img directory under name object_pictovalue.png, use this->picto='pictovalue@module'
-		$this->picto='godichea@godichea';
+		$this -> picto = 'godichea@godichea';
 
 		// Defined all module parts (triggers, login, substitutions, menus, css, etc...)
 		// for default path (eg: /godichea/core/xxxxx) (0=disable, 1=enable)
@@ -82,40 +80,49 @@ class modgodichea extends DolibarrModules
 		//							'barcode' => 0,                                  	// Set this to 1 if module has its own barcode directory (core/modules/barcode)
 		//							'models' => 0,                                   	// Set this to 1 if module has its own models directory (core/modules/xxx)
 		//							'css' => array('/godichea/css/godichea.css.php'),	// Set this to relative path of css file if module has its own css file
-	 	//							'js' => array('/godichea/js/godichea.js'),          // Set this to relative path of js file if module must load a js on all pages
+		//							'js' => array('/godichea/js/godichea.js'),          // Set this to relative path of js file if module must load a js on all pages
 		//							'hooks' => array('hookcontext1','hookcontext2')  	// Set here all hooks context managed by module
 		//							'dir' => array('output' => 'othermodulename'),      // To force the default directories names
 		//							'workflow' => array('WORKFLOW_MODULE1_YOURACTIONTYPE_MODULE2'=>array('enabled'=>'! empty($conf->module1->enabled) && ! empty($conf->module2->enabled)', 'picto'=>'yourpicto@godichea')) // Set here all workflow context managed by module
 		//                        );
-		$this->module_parts = array();
+		$this -> module_parts = array(
+		'triggers'=>1,
+		'hooks'=>array('?')
+		);
 
 		// Data directories to create when module is enabled.
 		// Example: this->dirs = array("/godichea/temp");
-		$this->dirs = array();
+		$this -> dirs = array();
 
 		// Config pages. Put here list of php page, stored into godichea/admin directory, to use to setup module.
-		$this->config_page_url = array("godichea_setup.php@godichea");
+		$this -> config_page_url = array("godichea_setup.php@godichea");
 
 		// Dependencies
-		$this->hidden = false;			// A condition to hide module
-		$this->depends = array();		// List of modules id that must be enabled if this module is enabled
-		$this->requiredby = array();	// List of modules id to disable if this one is disabled
-		$this->conflictwith = array();	// List of modules id this module is in conflict with
-		$this->phpmin = array(5,0);					// Minimum version of PHP required by module
-		$this->need_dolibarr_version = array(3,0);	// Minimum version of Dolibarr required by module
-		$this->langfiles = array("godichea@godichea");
+		$this -> hidden = false;
+		// A condition to hide module
+		$this -> depends = array();
+		// List of modules id that must be enabled if this module is enabled
+		$this -> requiredby = array();
+		// List of modules id to disable if this one is disabled
+		$this -> conflictwith = array();
+		// List of modules id this module is in conflict with
+		$this -> phpmin = array(5, 0);
+		// Minimum version of PHP required by module
+		$this -> need_dolibarr_version = array(3, 0);
+		// Minimum version of Dolibarr required by module
+		$this -> langfiles = array("godichea@godichea");
 
 		// Constants
 		// List of particular constants to add when module is enabled (key, 'chaine', value, desc, visible, 'current' or 'allentities', deleteonunactive)
 		// Example: $this->const=array(0=>array('MYMODULE_MYNEWCONST1','chaine','myvalue','This is a constant to add',1),
 		//                             1=>array('MYMODULE_MYNEWCONST2','chaine','myvalue','This is another constant to add',0, 'current', 1)
 		// );
-		$this->const = array();
+		$this -> const = array();
 
 		// Array to add new pages in new tabs
 		// Example: $this->tabs = array('objecttype:+tabname1:Title1:mylangfile@godichea:$user->rights->godichea->read:/godichea/mynewtab1.php?id=__ID__',  	// To add a new tab identified by code tabname1
-        //                              'objecttype:+tabname2:Title2:mylangfile@godichea:$user->rights->othermodule->read:/godichea/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2
-        //                              'objecttype:-tabname:NU:conditiontoremove');                                                     						// To remove an existing tab identified by code tabname
+		//                              'objecttype:+tabname2:Title2:mylangfile@godichea:$user->rights->othermodule->read:/godichea/mynewtab2.php?id=__ID__',  	// To add another new tab identified by code tabname2
+		//                              'objecttype:-tabname:NU:conditiontoremove');                                                     						// To remove an existing tab identified by code tabname
 		// where objecttype can be
 		// 'categories_x'	  to add a tab in category view (replace 'x' by type of category (0=product, 1=supplier, 2=customer, 3=member)
 		// 'contact'          to add a tab in contact view
@@ -136,55 +143,58 @@ class modgodichea extends DolibarrModules
 		// 'stock'            to add a tab in stock view
 		// 'thirdparty'       to add a tab in third party view
 		// 'user'             to add a tab in user view
-        $this->tabs = array(
-		'thirdparty:+godichea:GestionPC:godichea@godichea:$user->rights->godichea->read:/godichea/godichea.php?id=__ID__'
-		);
+		$this -> tabs = array('thirdparty:+godichea:GestionPC:godichea@godichea:$user->rights->godichea->read:/godichea/godichea.php?id=__ID__');
 
-        // Dictionaries
-	    if (! isset($conf->godichea->enabled))
-        {
-        	$conf->godichea=new stdClass();
-        	$conf->godichea->enabled=0;
-        }
-		$this->dictionaries=array();
-        /* Example:
-        if (! isset($conf->godichea->enabled)) $conf->godichea->enabled=0;	// This is to avoid warnings
-        $this->dictionaries=array(
-            'langs'=>'mylangfile@godichea',
-            'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictonnary editor
-            'tablib'=>array("Table1","Table2","Table3"),													// Label of tables
-            'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table1 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table2 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table3 as f'),	// Request to select fields
-            'tabsqlsort'=>array("label ASC","label ASC","label ASC"),																					// Sort order
-            'tabfield'=>array("code,label","code,label","code,label"),																					// List of fields (result of select to show dictionary)
-            'tabfieldvalue'=>array("code,label","code,label","code,label"),																				// List of fields (list of fields to edit a record)
-            'tabfieldinsert'=>array("code,label","code,label","code,label"),																			// List of fields (list of fields for insert)
-            'tabrowid'=>array("rowid","rowid","rowid"),																									// Name of columns with primary key (try to always name it 'rowid')
-            'tabcond'=>array($conf->godichea->enabled,$conf->godichea->enabled,$conf->godichea->enabled)												// Condition to show each dictionary
-        );
-        */
+		// Dictionaries
+		if (!isset($conf -> godichea -> enabled)) {
+			$conf -> godichea = new stdClass();
+			$conf -> godichea -> enabled = 0;
+		}
+		$this -> dictionaries = array();
+		/* Example:
+		 if (! isset($conf->godichea->enabled)) $conf->godichea->enabled=0;	// This is to avoid warnings
+		 $this->dictionaries=array(
+		 'langs'=>'mylangfile@godichea',
+		 'tabname'=>array(MAIN_DB_PREFIX."table1",MAIN_DB_PREFIX."table2",MAIN_DB_PREFIX."table3"),		// List of tables we want to see into dictonnary editor
+		 'tablib'=>array("Table1","Table2","Table3"),													// Label of tables
+		 'tabsql'=>array('SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table1 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table2 as f','SELECT f.rowid as rowid, f.code, f.label, f.active FROM '.MAIN_DB_PREFIX.'table3 as f'),	// Request to select fields
+		 'tabsqlsort'=>array("label ASC","label ASC","label ASC"),																					// Sort order
+		 'tabfield'=>array("code,label","code,label","code,label"),																					// List of fields (result of select to show dictionary)
+		 'tabfieldvalue'=>array("code,label","code,label","code,label"),																				// List of fields (list of fields to edit a record)
+		 'tabfieldinsert'=>array("code,label","code,label","code,label"),																			// List of fields (list of fields for insert)
+		 'tabrowid'=>array("rowid","rowid","rowid"),																									// Name of columns with primary key (try to always name it 'rowid')
+		 'tabcond'=>array($conf->godichea->enabled,$conf->godichea->enabled,$conf->godichea->enabled)												// Condition to show each dictionary
+		 );
+		 */
 
-        // Boxes
+		// Boxes
 		// Add here list of php file(s) stored in core/boxes that contains class to show a box.
-        $this->boxes = array();			// List of boxes
+		$this -> boxes = array();
+		// List of boxes
 		// Example:
 		//$this->boxes=array(array(0=>array('file'=>'myboxa.php','note'=>'','enabledbydefaulton'=>'Home'),1=>array('file'=>'myboxb.php','note'=>''),2=>array('file'=>'myboxc.php','note'=>'')););
 
 		// Permissions
-		$this->rights = array();		// Permission array used by this module
-		$r=0;
+		$this -> rights = array();
+		// Permission array used by this module
+		$r = 0;
 
 		// Add here list of permission defined by an id, a label, a boolean and two constant strings.
 		// Example:
-		$this->rights[$r][0] = $this->numero . $r;	// Permission id (must not be already used)
-		$this->rights[$r][1] = 'Read';	// Permission label
-		$this->rights[$r][3] = 1; 					// Permission by default for new user (0/1)
-		$this->rights[$r][4] = 'read';				// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
+		$this -> rights[$r][0] = $this -> numero . $r;
+		// Permission id (must not be already used)
+		$this -> rights[$r][1] = 'Read';
+		// Permission label
+		$this -> rights[$r][3] = 1;
+		// Permission by default for new user (0/1)
+		$this -> rights[$r][4] = 'read';
+		// In php code, permission will be checked by test if ($user->rights->permkey->level1->level2)
 		$r++;
 
-
 		// Main menu entries
-		$this->menu = array();			// List of menus to add
-		$r=0;
+		$this -> menu = array();
+		// List of menus to add
+		$r = 0;
 
 		// Add here entries to declare new menus
 		//
@@ -218,14 +228,13 @@ class modgodichea extends DolibarrModules
 		//							'user'=>2);				                // 0=Menu for internal users, 1=external users, 2=both
 		// $r++;
 
-
 		// Exports
-		$r=1;
+		$r = 1;
 
 		// Example:
 		// $this->export_code[$r]=$this->rights_class.'_'.$r;
 		// $this->export_label[$r]='CustomersInvoicesAndInvoiceLines';	// Translation key (used only if key ExportDataset_xxx_z not found)
-        // $this->export_enabled[$r]='1';                               // Condition to show export in list (ie: '$user->id==3'). Set to 1 to always show when module is enabled.
+		// $this->export_enabled[$r]='1';                               // Condition to show export in list (ie: '$user->id==3'). Set to 1 to always show when module is enabled.
 		// $this->export_permission[$r]=array(array("facture","facture","export"));
 		// $this->export_fields_array[$r]=array('s.rowid'=>"IdCompany",'s.nom'=>'CompanyName','s.address'=>'Address','s.zip'=>'Zip','s.town'=>'Town','s.fk_pays'=>'Country','s.phone'=>'Phone','s.siren'=>'ProfId1','s.siret'=>'ProfId2','s.ape'=>'ProfId3','s.idprof4'=>'ProfId4','s.code_compta'=>'CustomerAccountancyCode','s.code_compta_fournisseur'=>'SupplierAccountancyCode','f.rowid'=>"InvoiceId",'f.facnumber'=>"InvoiceRef",'f.datec'=>"InvoiceDateCreation",'f.datef'=>"DateInvoice",'f.total'=>"TotalHT",'f.total_ttc'=>"TotalTTC",'f.tva'=>"TotalVAT",'f.paye'=>"InvoicePaid",'f.fk_statut'=>'InvoiceStatus','f.note'=>"InvoiceNote",'fd.rowid'=>'LineId','fd.description'=>"LineDescription",'fd.price'=>"LineUnitPrice",'fd.tva_tx'=>"LineVATRate",'fd.qty'=>"LineQty",'fd.total_ht'=>"LineTotalHT",'fd.total_tva'=>"LineTotalTVA",'fd.total_ttc'=>"LineTotalTTC",'fd.date_start'=>"DateStart",'fd.date_end'=>"DateEnd",'fd.fk_product'=>'ProductId','p.ref'=>'ProductRef');
 		// $this->export_entities_array[$r]=array('s.rowid'=>"company",'s.nom'=>'company','s.address'=>'company','s.zip'=>'company','s.town'=>'company','s.fk_pays'=>'company','s.phone'=>'company','s.siren'=>'company','s.siret'=>'company','s.ape'=>'company','s.idprof4'=>'company','s.code_compta'=>'company','s.code_compta_fournisseur'=>'company','f.rowid'=>"invoice",'f.facnumber'=>"invoice",'f.datec'=>"invoice",'f.datef'=>"invoice",'f.total'=>"invoice",'f.total_ttc'=>"invoice",'f.tva'=>"invoice",'f.paye'=>"invoice",'f.fk_statut'=>'invoice','f.note'=>"invoice",'fd.rowid'=>'invoice_line','fd.description'=>"invoice_line",'fd.price'=>"invoice_line",'fd.total_ht'=>"invoice_line",'fd.total_tva'=>"invoice_line",'fd.total_ttc'=>"invoice_line",'fd.tva_tx'=>"invoice_line",'fd.qty'=>"invoice_line",'fd.date_start'=>"invoice_line",'fd.date_end'=>"invoice_line",'fd.fk_product'=>'product','p.ref'=>'product');
@@ -242,21 +251,20 @@ class modgodichea extends DolibarrModules
 	 *		The init function add constants, boxes, permissions and menus (defined in constructor) into Dolibarr database.
 	 *		It also creates data directories
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function init($options='')
-	{
+	function init($options = '') {
 		$sql = array();
-		
-		define('INC_FROM_DOLIBARR',true);
+
+		define('INC_FROM_DOLIBARR', true);
 
 		dol_include_once('/godichea/config.php');
 		dol_include_once('/godichea/script/create-maj-base.php');
 
-		$result=$this->_load_tables('/godichea/sql/');
+		$result = $this -> _load_tables('/godichea/sql/');
 
-		return $this->_init($sql, $options);
+		return $this -> _init($sql, $options);
 	}
 
 	/**
@@ -264,14 +272,13 @@ class modgodichea extends DolibarrModules
 	 *      Remove from database constants, boxes and permissions from Dolibarr database.
 	 *		Data directories are not deleted
 	 *
-     *      @param      string	$options    Options when enabling module ('', 'noboxes')
+	 *      @param      string	$options    Options when enabling module ('', 'noboxes')
 	 *      @return     int             	1 if OK, 0 if KO
 	 */
-	function remove($options='')
-	{
+	function remove($options = '') {
 		$sql = array();
 
-		return $this->_remove($sql, $options);
+		return $this -> _remove($sql, $options);
 	}
 
 }
